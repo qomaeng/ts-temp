@@ -1,0 +1,13 @@
+.git/
+.github/
+.idea/
+
+docs/
+**/*.md
+
+**/node_modules/
+**/dist/
+**/*.tsbuildinfo
+
+**/.env
+**/.env.*

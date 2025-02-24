@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "noEmit": true
+  },
+  "references": [
+    { "path": "./webs/web-server" },
+    { "path": "./apps/api-server" },
+    { "path": "./packages/core" }
+  ],
+  "files": [],
+  "include": []
+}
