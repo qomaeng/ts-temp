@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 채팅 어시스턴트</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="chat-window.css">
+</head>
+
+<body class="popup-window">
+  <div class="chat-window">
+    <!-- Chat Header -->
+    <header class="chat-header">
+      <div class="header-content">
+        <div class="avatar-container">
+          <div class="avatar">
+            <span>AI</span>
+            <div class="status-indicator"></div>
+          </div>
+          <div class="assistant-info">
+            <h3>AI 어시스턴트</h3>
+            <div class="status">
+              <span class="status-dot"></span>
+              <span class="status-text">온라인</span>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="action-button" id="clearChat" title="대화 지우기">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+              </path>
+            </svg>
+          </button>
+          <button class="action-button" id="closeChat" title="창 닫기" onclick="window.close()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+              </path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chat Messages -->
+    <main class="chat-messages" id="chatMessages">
+      <!-- Messages will be dynamically inserted here -->
+    </main>
+
+    <!-- Chat Input -->
+    <footer class="chat-input">
+      <form id="messageForm" class="message-form">
+        <textarea id="messageInput" class="message-input" placeholder="메시지를 입력하세요... (Shift + Enter 줄바꿈)"
+          rows="1"></textarea>
+        <button type="submit" class="send-button" aria-label="메시지 보내기">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd">
+            </path>
+          </svg>
+        </button>
+      </form>
+    </footer>
+  </div>
+  <script src="chat-window.js"></script>
+</body>
+
+</html>

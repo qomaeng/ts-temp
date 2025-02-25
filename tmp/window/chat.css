@@ -1,0 +1,123 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans KR", "Poppins", sans-serif;
+}
+
+/* Chat container */
+.chat-container {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Chat toggle button */
+.chat-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(to right, #38bdf8, #3b82f6);
+  color: white;
+  border-radius: 9999px;
+  padding: 1rem;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 50;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+}
+
+.chat-toggle:hover {
+  transform: scale(1.05) translateY(-2px);
+  animation: button-glow 2s infinite;
+}
+
+.chat-toggle:active {
+  transform: scale(0.95) translateY(0);
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.chat-toggle svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  transition: transform 0.3s ease;
+}
+
+.chat-toggle:hover svg {
+  transform: scale(1.1);
+}
+
+.chat-icon {
+  display: block;
+}
+
+/* Button glow animation */
+@keyframes button-glow {
+  0% {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.2),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  50% {
+    box-shadow:
+      0 20px 32px rgba(0, 0, 0, 0.25),
+      0 2px 8px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
+      0 0 20px rgba(56, 189, 248, 0.2);
+  }
+
+  100% {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.2),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .chat-toggle {
+    bottom: 1rem;
+    right: 1rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0.875rem;
+  }
+
+  .chat-toggle svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .chat-toggle {
+    transition: none;
+    animation: none;
+  }
+
+  .chat-toggle:hover {
+    animation: none;
+  }
+}
