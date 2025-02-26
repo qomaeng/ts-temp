@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const helloMessage =
+    '안녕하세요! 저는 ALL#ai ALLI(올리)입니다.\n' +
+    '"ALL"과 발음이 비슷한 제 이름처럼, 모든 것을 도와주는 든든한 조력자가 되어드리겠습니다.\n' +
+    'ERP 시스템 사용에 대해 궁금한 점이 있으시면 언제든 물어보세요!';
+
   const state = {
     messages: [
       {
         type: 'ai',
-        text: '안녕하세요! 👋 AI 어시스턴트입니다. 무엇을 도와드릴까요?',
+        text: helloMessage,
         feedback: null,
         time: formatTime(new Date()),
       },
@@ -32,29 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const content = document.createElement('div');
     content.className = 'message-content';
+    content.style.width = 'fit-content';
 
     const lines = message.text.split('\n');
-    const longestLine = lines.reduce(
-      (longest, current) => (current.length > longest.length ? current : longest),
-      '',
-    );
-
-    const measureDiv = document.createElement('div');
-    measureDiv.style.visibility = 'hidden';
-    measureDiv.style.position = 'absolute';
-    measureDiv.style.whiteSpace = 'nowrap';
-    measureDiv.style.font = getComputedStyle(content).font;
-    measureDiv.textContent = longestLine;
-    document.body.appendChild(measureDiv);
-
-    const textWidth = measureDiv.offsetWidth;
-    document.body.removeChild(measureDiv);
-
-    const padding = 32;
-    const maxWidth = Math.min(textWidth + padding, window.innerWidth * 0.8);
-    content.style.width = 'fit-content';
-    content.style.maxWidth = `${maxWidth}px`;
-
     lines.forEach((line, index) => {
       const span = document.createElement('span');
       span.textContent = line;
@@ -68,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const meta = document.createElement('div');
     meta.className = 'message-meta';
-    meta.style.maxWidth = `${maxWidth}px`;
 
     const timestamp = document.createElement('span');
     timestamp.className = 'message-timestamp';
@@ -80,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
       feedback.className = 'feedback-buttons';
 
       const thumbsUp = document.createElement('button');
+      const thumbsDown = document.createElement('button');
+
       thumbsUp.className = 'feedback-button thumbs-up';
       thumbsUp.innerHTML = '<i class="fa-solid fa-thumbs-up"></i>';
       thumbsUp.setAttribute('aria-label', '도움이 됨');
@@ -89,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         thumbsDown.classList.remove('active');
       };
 
-      const thumbsDown = document.createElement('button');
       thumbsDown.className = 'feedback-button thumbs-down';
       thumbsDown.innerHTML = '<i class="fa-solid fa-thumbs-down"></i>';
       thumbsDown.setAttribute('aria-label', '도움이 되지 않음');
@@ -182,11 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.messages.appendChild(indicator);
     scrollToBottom();
+
     return indicator;
   }
 
   function handleSubmit(event) {
     event.preventDefault();
+
     const input = elements.input;
     const rawText = input.value;
     const trimmedText = rawText.replace(/^\s+|\s+$/g, '');
@@ -212,25 +199,57 @@ document.addEventListener('DOMContentLoaded', () => {
     state.isTyping = true;
     const indicator = showTypingIndicator();
 
-    setTimeout(() => {
-      indicator.remove();
-      state.isTyping = false;
+    fetch('/rag', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: trimmedText }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
 
-      addMessage({
-        type: 'ai',
-        text: `말씀하신 내용은: ${trimmedText} 입니다. 어떤 도움이 필요하신가요?`,
-        feedback: null,
-        time: formatTime(new Date()),
-        isTyping: false,
+        indicator.remove();
+        state.isTyping = false;
+
+        addMessage({
+          type: 'ai',
+          text: data.result || data.response,
+          feedback: null,
+          time: formatTime(new Date()),
+          isTyping: false,
+        });
+
+        return;
+      })
+      .catch((error) => {
+        indicator.remove();
+        state.isTyping = false;
+
+        console.error('Error:', error);
+        addMessage({
+          type: 'ai',
+          text: `죄송합니다. 오류가 발생했습니다. 다시 시도해주세요.\n에러 내용: ${error.message}`,
+          feedback: null,
+          time: formatTime(new Date()),
+          isTyping: false,
+        });
       });
-    }, 2000);
   }
 
   function clearChat() {
     state.messages = [
       {
         type: 'ai',
-        text: '안녕하세요! 👋 AI 어시스턴트입니다. 무엇을 도와드릴까요?',
+        text: helloMessage,
         feedback: null,
         time: formatTime(new Date()),
       },

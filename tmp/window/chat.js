@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function openChatWindow() {
     const width = 400;
     const height = 600;
-    const left = window.screen.width - width - 20;
+    const left = (window.screen.width - width) / 2;
     const top = (window.screen.height - height) / 2;
 
     // Check if window exists and is not closed

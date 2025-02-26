@@ -20,10 +20,12 @@ body {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: linear-gradient(to right, #38bdf8, #3b82f6);
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(to right, #38bdf8, #2379bf);
   color: white;
   border-radius: 9999px;
-  padding: 1rem;
+  padding: 0;
   box-shadow:
     0 12px 28px rgba(0, 0, 0, 0.2),
     0 2px 4px rgba(0, 0, 0, 0.1),
@@ -35,8 +37,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.75rem;
-  height: 3.75rem;
 }
 
 .chat-toggle:hover {
@@ -52,16 +52,15 @@ body {
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
 
-.chat-toggle svg {
+.chat-toggle img {
   width: 1.75rem;
-  height: 1.75rem;
   stroke: currentColor;
   stroke-width: 2;
   fill: none;
   transition: transform 0.3s ease;
 }
 
-.chat-toggle:hover svg {
+.chat-toggle:hover img {
   transform: scale(1.1);
 }
 
@@ -99,12 +98,12 @@ body {
   .chat-toggle {
     bottom: 1rem;
     right: 1rem;
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0.875rem;
   }
 
-  .chat-toggle svg {
+  .chat-toggle img {
     width: 1.5rem;
     height: 1.5rem;
   }
