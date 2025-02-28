@@ -284,6 +284,13 @@ const eslintConfig = [
   {
     ignores: globalIgnores,
   },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
 ];
 
 export default eslintConfig;
