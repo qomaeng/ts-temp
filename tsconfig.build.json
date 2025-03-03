@@ -1,9 +1,0 @@
-{
-  "references": [
-    { "path": "./webs/web-server/tsconfig.build.json" },
-    { "path": "./apps/api-server/tsconfig.build.json" },
-    { "path": "./packages/core/tsconfig.build.json" }
-  ],
-  "files": [],
-  "include": []
-}

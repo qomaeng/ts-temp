@@ -1,24 +1,17 @@
 {
-  "name": "@alli/workspace",
+  "name": "alli-admin-web",
   "version": "0.0.1",
   "description": "",
   "private": true,
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
+  },
   "devDependencies": {
     "@alli/eslint-config": "workspace:*",
     "@alli/typescript-config": "workspace:*",
-    "eslint": "^9.21.0",
-    "prettier": "^3.5.3",
-    "rimraf": "^6.0.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.25.0"
-  },
-  "engines": {
-    "node": "^22"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@nestjs/core",
-      "@swc/core"
-    ]
   }
 }
